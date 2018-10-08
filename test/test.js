@@ -7,8 +7,8 @@ const setLink = require('..')
 
 describe('response-set-link', () => {
   it('should be a middleware', () => {
-    assert.equal(typeof setLink, 'function')
-    assert.equal(setLink.length, 3)
+    assert.strictEqual(typeof setLink, 'function')
+    assert.strictEqual(setLink.length, 3)
   })
 
   it('should assign .setLink method to the response', () => {
@@ -17,8 +17,8 @@ describe('response-set-link', () => {
     app.use(setLink)
 
     app.use((req, res) => {
-      assert.equal(typeof res.setLink, 'function')
-      assert.equal(res.setLink.length, 3)
+      assert.strictEqual(typeof res.setLink, 'function')
+      assert.strictEqual(res.setLink.length, 3)
 
       res.end()
     })
@@ -38,7 +38,7 @@ describe('response-set-link', () => {
     })
 
     return request(app).get('/').then((res) => {
-      assert.equal(res.get('link'), '<http://example.org/context>; rel="http://www.w3.org/ns/json-ld#context"')
+      assert.strictEqual(res.get('link'), '<http://example.org/context>; rel="http://www.w3.org/ns/json-ld#context"')
     })
   })
 
@@ -57,7 +57,7 @@ describe('response-set-link', () => {
     })
 
     return request(app).get('/').then((res) => {
-      assert.equal(res.get('link'), '<http://example.org/context>; rel="http://www.w3.org/ns/json-ld#context"; title="example title"; type="application/ld+json"')
+      assert.strictEqual(res.get('link'), '<http://example.org/context>; rel="http://www.w3.org/ns/json-ld#context"; title="example title"; type="application/ld+json"')
     })
   })
 
@@ -79,7 +79,7 @@ describe('response-set-link', () => {
     })
 
     return request(app).get('/').then((res) => {
-      assert.equal(res.get('link'), [
+      assert.strictEqual(res.get('link'), [
         '<http://example.org/api>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"',
         '<http://example.org/context>; rel="http://www.w3.org/ns/json-ld#context"'
       ].join(', '))
@@ -98,7 +98,7 @@ describe('response-set-link', () => {
     })
 
     return request(app).get('/').then((res) => {
-      assert.equal(res.get('link'), '<http://example.org/context>; rel="http://www.w3.org/ns/json-ld#context"')
+      assert.strictEqual(res.get('link'), '<http://example.org/context>; rel="http://www.w3.org/ns/json-ld#context"')
     })
   })
 })

@@ -1,9 +1,11 @@
-# set-link
+# next-link
 
-[![Build Status](https://travis-ci.org/bergos/set-link.svg?branch=master)](https://travis-ci.org/bergos/set-link)
-[![npm version](https://badge.fury.io/js/set-link.svg)](https://badge.fury.io/js/set-link)
+[![npm version](https://badge.fury.io/js/next-link.svg)](https://badge.fury.io/js/next-link)
 
-Link header middleware for express with multiple value and attribute support.
+Link header middleware for next/express to add static content always fetched with initial SSR request.
+Everything from static is automatically served except for the current page route which needs to be defined.
+
+TODO: figure out how to automatically push everything.  
 
 ## Usage
 
@@ -11,13 +13,22 @@ The middleware doesn't require any parameters.
 Just add it to the express app like this:
 
 ```
-const setLink = require('set-link')
+const nextLink = require('next-link')
 
 const app = express()
 
-app.use(setLink)
+app.use(nextLink)
 ```
 
+The primary use is to specify which static page this route belongs to.
+(When `.pageLink` is called, the other static routes are added.)
+```
+app.get("/", (req, res) => {
+    res.pageLink("index.js");
+});
+```
+
+Other links can be pushed with `.setLink`.
 `.setLink` must be called with the link IRI and the relationship:
 
 ```
