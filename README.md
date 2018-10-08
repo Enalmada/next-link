@@ -5,7 +5,10 @@
 Link header middleware for next/express to add static content always fetched with initial SSR request.
 Everything from static is automatically served except for the current page route which needs to be defined.
 
-TODO: figure out how to automatically push everything.  
+TODO: 
+- figure out how to automatically push everything.  
+- send/check a cookie with buildId so we know if resources need to be sent 
+- make default pages configurable
 
 ## Usage
 
