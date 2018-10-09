@@ -5,13 +5,15 @@
 Link header middleware for next/express to add static content always fetched with initial SSR request.
 Everything from static is automatically served except for the current page route which needs to be defined.
 
+
 TODO: 
 - figure out how to automatically push everything.  
 - send/check a cookie with buildId so we know if resources need to be sent 
 - make default pages configurable
+- look at assetPrefix rather than CDN_URL env variable
 
 ## Usage
-
+Create environment variable called CDN_URL that matches your asset prefix
 The middleware doesn't require any parameters.
 Just add it to the express app like this:
 

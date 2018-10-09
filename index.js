@@ -2,9 +2,12 @@
 //     // <https://clientcdn.gelltest.com/_next/static/css/commons.b4f91604.chunk.css>; as=style; rel=preload
 const dev = process.env.NODE_ENV !== 'production'
 const fs = require('fs')
+const { CDN_URL } = process.env
+
+const linkPrefix = CDN_URL ? `${CDN_URL}` : ''
 
 function linkFile (name, as) {
-  return `<${process.env.LINK_PREFIX}${name}>; as=${as}; rel=preload`
+  return `<${linkPrefix}${name}>; as=${as}; rel=preload`
 }
 
 function getFiles (dir, mapping, as) {
@@ -36,14 +39,14 @@ function pageLink (href, rel, attr) {
   const staticLinks = getFiles('./.next/static/css', '/_next/static/css/', 'style')
     .concat(getFiles('./.next/static/chunks', '/_next/static/chunks/', 'script'))
     .concat(getFiles('./.next/static/runtime', '/_next/static/runtime/', 'script'))
-    .concat(defaultPages.map(p => [`<${process.env.LINK_PREFIX}${prefix}pages/${p}>`,
+    .concat(defaultPages.map(p => [`<${linkPrefix}${prefix}pages/${p}>`,
       'rel=preload', 'as=script'].join('; ')))
 
   // console.log(`defaultLinks: ${defaultLinks}`);
 
   attr = attr || {}
 
-  const newLink = [`<${process.env.LINK_PREFIX}${prefix}pages/${href}>`,
+  const newLink = [`<${linkPrefix}${prefix}pages/${href}>`,
     'rel=preload', 'as=script'].concat(Object.keys(attr).map(key => `${key}="${attr[key]}"`)).join('; ')
 
   staticLinks.push(newLink)

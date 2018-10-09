@@ -1,7 +1,7 @@
 {
   "name": "next-link",
   "description": "Link header middleware for next.js static assets",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://github.com/Enalmada/next-link",
   "main": "index.js",
   "repository": {
