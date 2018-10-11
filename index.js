@@ -16,7 +16,7 @@ function getFiles (dir, mapping, as) {
     const files = fs.readdirSync(dir)
     for (const i in files) {
       const name = linkFile(`${mapping}${files[i]}`, as)
-      if (!files[i].endsWith('.map')) {
+      if (!files[i].endsWith('.map') && !files[i].includes('hot-update')) {
         files_.push(name)
       }
     }
@@ -42,7 +42,7 @@ function pageLink (href, rel, attr) {
     .concat(defaultPages.map(p => [`<${linkPrefix}${prefix}pages/${p}>`,
       'rel=preload', 'as=script', 'crossorigin=anonymous'].join('; ')))
 
-  // console.log(`defaultLinks: ${defaultLinks}`);
+  //console.log(`staticLinks: ${staticLinks}`);
 
   attr = attr || {}
 
