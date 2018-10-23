@@ -1,7 +1,7 @@
 {
   "name": "next-link",
   "description": "Link header middleware for next.js static assets",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "homepage": "https://github.com/Enalmada/next-link",
   "main": "index.js",
   "repository": {
@@ -21,7 +21,9 @@
   "scripts": {
     "test": "standard && mocha"
   },
-  "dependencies": {},
+  "dependencies": {
+    "on-headers": "^1.0.1"
+  },
   "devDependencies": {
     "express": "^4.16.3",
     "mocha": "^5.2.0",

@@ -1,5 +1,58 @@
+/* eslint no-shadow: "off", "no-console":  off, no-unused-vars: 0, no-param-reassign: 0,
+guard-for-in: 0, no-restricted-syntax: 0,  no-underscore-dangle: 0, global-require: 0, no-useless-escape: 0, no-cond-assign: 0 */
+
+const onHeaders = require("on-headers");
+
+function linkFile(name) {
+  let as = "script";
+  if (name.endsWith(".css")) {
+    as = "style";
+  }
+  return `<${name}>; as=${as}; rel=preload; crossorigin=anonymous`;
+}
+
+// Put the preload hints in head into response headers for proxy to turn into h2 push
+// Link headers are turned into h2 server push by most proxy which improves time to interactive latency.
+// Use Chrome lighthouse plugin to test
+function nextLink(
+  app,
+  req,
+  res,
+  pagePath,
+  queryParams,
+) {
+  app
+    .renderToHTML(req, res, pagePath, queryParams)
+    .then((html) => {
+      onHeaders(res, () => {
+        const matches = [];
+        const myRegex = /<link rel="preload" href=\"([^\"]*_next[^"]*)"/gs;
+        let match;
+        while (match = myRegex.exec(html)) matches.push(match[1]);
+        const newLinks = matches.map(m => linkFile(m)).join("; ");
+
+        const existingLinks = res.getHeader("link");
+
+        if (existingLinks) {
+          res.setHeader("link", `${existingLinks}, ${newLinks}`);
+        } else {
+          res.setHeader("link", newLinks);
+        }
+      });
+
+      res.send(html);
+    })
+    .catch((err) => {
+      app.renderError(err, req, res, pagePath, queryParams);
+    });
+}
+
+module.exports = nextLink;
+
+
 /* eslint no-param-reassign: 0, func-names: 0, guard-for-in: 0, no-restricted-syntax: 0,  no-underscore-dangle: 0 */
 //     // <https://clientcdn.gelltest.com/_next/static/css/commons.b4f91604.chunk.css>; as=style; rel=preload
+/*
 const dev = process.env.NODE_ENV !== 'production'
 const fs = require('fs')
 const { CDN_URL } = process.env
@@ -86,3 +139,4 @@ middleware.attach = function (res) {
 }
 
 module.exports = middleware
+*/
