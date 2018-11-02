@@ -1,12 +1,12 @@
 {
-  "name": "next-link",
+  "name": "next-preload-headers",
   "description": "Link header middleware for next.js static assets",
   "version": "2.0.0",
-  "homepage": "https://github.com/Enalmada/next-link",
+  "homepage": "https://github.com/Enalmada/next-preload-headers",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Enalmada/next-link.git"
+    "url": "https://github.com/Enalmada/next-preload-headers.git"
   },
   "keywords": [
     "next.js",
@@ -16,7 +16,7 @@
     "link"
   ],
   "bugs": {
-    "url": "https://github.com/Enalmada/next-link/issues"
+    "url": "https://github.com/Enalmada/next-preload-headers/issues"
   },
   "scripts": {
     "test": "standard && mocha"
@@ -25,7 +25,7 @@
     "on-headers": "^1.0.1"
   },
   "devDependencies": {
-    "express": "^4.16.3",
+    "express": "^4.16.4",
     "mocha": "^5.2.0",
     "standard": "^12.0.1",
     "supertest": "^3.3.0"
