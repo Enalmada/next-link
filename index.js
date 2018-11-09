@@ -1,10 +1,9 @@
 /* eslint no-cond-assign: 0 */
 
-const tamper = require("tamper");
+const interceptor = require("express-interceptor");
 
 
 function linkFile(name) {
-
   // All the nextjs stuff is simple.  This would need to get more complex if we wanted to do more than
   // next static (endings may not be just js or css)
   let as = "script";
@@ -14,16 +13,13 @@ function linkFile(name) {
   return `<${name}>; as=${as}; rel=preload; crossorigin=anonymous`;
 }
 
-module.exports = tamper((req, res) => {
-
-  // only want to modify html responses:
-  if (!res.getHeader("Content-Type").startsWith("text/html")) {
-    // continue as usual without performance impact
-    return;
-  }
-
-  // Return a function in order to capture and modify the response body:
-  return function (body) {
+module.exports = interceptor((req, res) => ({
+  // Only HTML responses will be intercepted
+  isInterceptable() {
+    return /text\/html/.test(res.get("Content-Type"));
+  },
+  // Appends a paragraph at the end of the response body
+  intercept(body, send) {
     const matches = [];
     const myRegex = /<link rel="preload" href="([^"]*_next[^"]*)"/gs;
     let match;
@@ -39,6 +35,6 @@ module.exports = tamper((req, res) => {
       res.setHeader("link", newLinks);
     }
 
-    return body;
-  };
-});
+    send(body);
+  },
+}));
