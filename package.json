@@ -1,7 +1,7 @@
 {
   "name": "next-preload-headers",
   "description": "next.js static assets upgraded to preload response headers",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "homepage": "https://github.com/Enalmada/next-preload-headers",
   "main": "index.js",
   "repository": {
@@ -26,9 +26,9 @@
   },
   "devDependencies": {
     "express": "^4.16.4",
-    "mocha": "^5.2.0",
+    "mocha": "^6.1.4",
     "standard": "^12.0.1",
-    "supertest": "^3.3.0"
+    "supertest": "^4.0.2"
   },
   "author": "Adam Lane <enalmada@gmail.com>",
   "license": "MIT"

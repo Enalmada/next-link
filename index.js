@@ -24,7 +24,7 @@ module.exports = interceptor((req, res) => ({
     const myRegex = /<link rel="preload" href="([^"]*_next[^"]*)"/gs;
     let match;
     while (match = myRegex.exec(body)) matches.push(match[1]);
-    const newLinks = matches.map(m => linkFile(m)).join("; ");
+    const newLinks = matches.map(m => linkFile(m)).join(", ");
 
     // Add to existing links if exist
     const existingLinks = res.getHeader("link");
