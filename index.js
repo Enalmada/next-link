@@ -21,9 +21,12 @@ module.exports = interceptor((req, res) => ({
   // Appends a paragraph at the end of the response body
   intercept(body, send) {
     const matches = [];
-    const myRegex = /<link rel="preload" href="([^"]*_next[^"]*)"/gs;
+    const preloadRegex = /<link rel="preload" href="([^"]*_next[^"]*)"/gs;
+    const stylesheetRegex = /<link rel="stylesheet" href="([^"]*_next[^"]*)"/gs;
     let match;
-    while (match = myRegex.exec(body)) matches.push(match[1]);
+    while (match = preloadRegex.exec(body)) matches.push(match[1]);
+    while (match = stylesheetRegex.exec(body)) matches.push(match[1]);
+
     const newLinks = matches.map(m => linkFile(m)).join(", ");
 
     // Add to existing links if exist

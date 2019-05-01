@@ -1,7 +1,7 @@
 {
   "name": "next-preload-headers",
   "description": "next.js static assets upgraded to preload response headers",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "homepage": "https://github.com/Enalmada/next-preload-headers",
   "main": "index.js",
   "repository": {

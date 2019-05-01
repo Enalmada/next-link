@@ -27,3 +27,8 @@ TODO:
 - send/check a cookie with buildId so we know if resources need to be pushed for this build
 - consider sorting style elements first
 - figure out why sometimes getting "can't add headers to already sent response".  I think this is just an HMR issue in dev.
+
+
+##Changelog:
+* 3.0.4 - adding stylesheet link tags 
+* 3.0.3 - fix error with semicolon separating links when should have been comma
